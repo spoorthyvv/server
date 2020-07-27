@@ -26694,6 +26694,9 @@ bool JOIN_TAB::save_explain_data(Explain_table_access *eta,
       !((QUICK_ROR_INTERSECT_SELECT*)cur_quick)->need_to_fetch_row)
     key_read=1;
     
+  if (table_list->table_function)
+    eta->push_extra(ET_TABLE_FUNCTION);
+
   if (info)
   {
     eta->push_extra(info);
