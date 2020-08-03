@@ -1087,6 +1087,7 @@ Field_longstr::pack_sort_string(uchar *to, const SORT_FIELD_ATTR *sort_field)
 {
   StringBuffer<LONGLONG_BUFFER_SIZE> buf;
   val_str(&buf, &buf);
+  DBUG_ASSERT(buf.charset() == field_charset());
   return to + sort_field->pack_sort_string(to, &buf);
 }
 

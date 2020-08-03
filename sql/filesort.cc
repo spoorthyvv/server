@@ -2573,6 +2573,13 @@ Type_handler_string_result::make_packed_sort_key_part(uchar *to, Item *item,
       return sort_field->original_length;
     }
   }
+  /*
+    Safety as pack_sort_string() critically depends on the item collation
+    and there may be a bug in val_str() that does not set the character set
+    properly.
+  */
+  DBUG_ASSERT(res->charset() == item->collation.collation);
+  res->set_charset(item->collation.collation);
   return sort_field->pack_sort_string(to, res);
 }
 
