@@ -736,6 +736,7 @@ void
 lock_unlock_table_autoinc(
 /*======================*/
 	trx_t*	trx);			/*!< in/out: transaction */
+
 /*********************************************************************//**
 Check whether the transaction has already been rolled back because it
 was selected as a deadlock victim, or if it has to wait then cancel
@@ -744,7 +745,8 @@ the wait lock.
 dberr_t
 lock_trx_handle_wait(
 /*=================*/
-	trx_t*	trx);	/*!< in/out: trx lock state */
+	trx_t*  trx);   /*!< in/out: trx lock state */
+
 /*********************************************************************//**
 Get the number of locks on a table.
 @return number of locks */
