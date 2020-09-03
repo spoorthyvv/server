@@ -4446,7 +4446,7 @@ int MYSQL_BIN_LOG::purge_first_log(Relay_log_info* rli, bool included)
                             0, 0, &log_space_reclaimed);
 
   mysql_mutex_lock(&rli->log_space_lock);
-  rli->log_space_total-= log_space_reclaimed;
+  my_atomic_add64(&rli->log_space_total,-(uint64)(log_space_reclaimed));
   mysql_cond_broadcast(&rli->log_space_cond);
   mysql_mutex_unlock(&rli->log_space_lock);
 

@@ -725,13 +725,13 @@ public:
   {
     bytes_written = 0;
   }
-  void harvest_bytes_written(ulonglong* counter)
+  void harvest_bytes_written(volatile uint64* counter)
   {
 #ifndef DBUG_OFF
     char buf1[22],buf2[22];
 #endif
     DBUG_ENTER("harvest_bytes_written");
-    (*counter)+=bytes_written;
+    my_atomic_add64(counter, bytes_written);
     DBUG_PRINT("info",("counter: %s  bytes_written: %s", llstr(*counter,buf1),
 		       llstr(bytes_written,buf2)));
     bytes_written=0;
